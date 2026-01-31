@@ -1,6 +1,13 @@
-import { Shield } from "lucide-react";
+import { Shield, LogOut } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
+import { Button } from "@/components/ui/button";
 
-const DashboardHeader = () => {
+interface DashboardHeaderProps {
+  isLoggedIn?: boolean;
+  onLogout?: () => void;
+}
+
+const DashboardHeader = ({ isLoggedIn = false, onLogout }: DashboardHeaderProps) => {
   return (
     <header className="border-b border-border bg-card">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -13,8 +20,14 @@ const DashboardHeader = () => {
             <p className="text-xs text-muted-foreground">For Indian MSMEs</p>
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <span className="text-sm font-medium text-foreground">Compliance Dashboard</span>
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-foreground hidden sm:block">Compliance Dashboard</span>
+          <ThemeToggle />
+          {isLoggedIn && onLogout && (
+            <Button variant="ghost" size="icon" onClick={onLogout} aria-label="Logout">
+              <LogOut className="h-5 w-5" />
+            </Button>
+          )}
         </div>
       </div>
     </header>
